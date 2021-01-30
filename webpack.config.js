@@ -25,8 +25,9 @@ module.exports = {
       {
         test: /\.css|scss$/,
         use: [
-          'style-loader',
-          MiniCssExtractPlugin.loader,
+          process.env.NODE_ENV !== 'production'
+            ? 'style-loader'
+            : MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
@@ -44,7 +45,8 @@ module.exports = {
       },
       {
         test: /\.jpg|jpeg|png|gif|svg$/,
-        use: ['file-loader'],
+        loader: 'file-loader',
+        options: { name: '[name].[ext]' },
       },
     ],
   },
